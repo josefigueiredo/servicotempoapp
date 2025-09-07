@@ -9,7 +9,7 @@ import time,schedule
 from datetime import datetime
 
 # para testes: sincroniza leituras a cada 10 miutos
-intervalo = 2
+intervalo = 5
 
 class HoraCerta:
     def getTimestamp():

@@ -14,5 +14,12 @@ CREATE TABLE tbl_leituras(time INTEGER PRIMARY KEY,
 		FOREIGN KEY(sensor) REFERENCES tbl_sensores(sensor_id) );
 
 
+CREATE TABLE tbl_tempaparente(time INTEGER,
+		tempaparente	REAL, 
+		FOREIGN KEY(time) REFERENCES tbl_leituras(time) );
+
+CREATE TABLE tbl_ultimoProcessado(time INTEGER,
+		FOREIGN KEY(time) REFERENCES tbl_leituras(time) );
+
 COMMIT
 

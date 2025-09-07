@@ -2,28 +2,30 @@
 
 from paho.mqtt import client as mqtt_client
 import sqlite3,json
-
+from datetime import datetime as dt
 
 
 def insereLeiturasBD(leituraJson):
+    bd = "databases/leituras.db"
     columns = ', '.join(leituraJson.keys())
     placeholders = ', '.join('?' * len(leituraJson))
     sql = 'INSERT INTO tbl_leituras ({}) VALUES ({})'.format(columns, placeholders)
     
     try:
-        con = sqlite3.connect("leituras.db")
+        con = sqlite3.connect(bd)
         cur = con.cursor()
         cur.execute(sql, tuple(leituraJson.values()))
         con.commit()
     except sqlite3.Error as e:
         print(f"um erro ocorreu: {e}")
     finally:
-        print(f"Leitura registrada com sucesso")
+        print(f"Leitura registrada com sucesso: {dt.now()}")
         if con:
             con.close()
 
 def tratarDados(msg):
     strMsg = msg.decode("utf-8")
+    print(strMsg)
     leituraJson = json.loads(strMsg)
     insereLeiturasBD(leituraJson)
 
